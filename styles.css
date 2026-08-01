@@ -113,7 +113,11 @@ h1 em { color: var(--accent); font-style: normal; }
 .model-card.featured { background: linear-gradient(145deg, rgba(66,212,255,0.08), rgba(255,255,255,0.015)); }
 .model-topline { display: flex; justify-content: space-between; color: var(--dim); font: 0.68rem "DM Mono", monospace; text-transform: uppercase; letter-spacing: 0.1em; }
 .model-card h3 { margin: 40px 0 12px; font-size: 2.4rem; letter-spacing: -0.05em; font-weight: 500; }
-.model-card p { color: var(--muted); }
+.model-card > p {
+  min-height: 6.8em;
+  margin-bottom: 0;
+  color: var(--muted);
+}
 .model-diagram {
   min-height: 210px;
   margin: 18px -10px 20px;
@@ -210,6 +214,7 @@ footer small { grid-column: 1 / -1; color: var(--dim); }
   .site-header { height: 64px; padding: 0 18px; }
   .header-link { font-size: 0.72rem; }
   .model-grid { grid-template-columns: 1fr; }
+  .model-card > p { min-height: 0; }
   .hero { min-height: auto; padding: 70px 18px; }
   h1 { font-size: clamp(3.2rem, 17vw, 5rem); }
   .section { padding: 90px 18px; }
