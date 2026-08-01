@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Dual-arm, data-driven model predictive control for deformable linear objects."
+    />
+    <title>DLO-MPC · Dual-arm cable shape control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="DLO-MPC home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>DLO—MPC</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#background">Background</a>
+        <a href="#models">Models</a>
+        <a href="#data">Data</a>
+        <a href="#mpc">MPC</a>
+      </nav>
+      <a
+        class="header-link"
+        href="https://github.com/Leary-H/dlo_mpc"
+        target="_blank"
+        rel="noreferrer"
+      >
+        GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Robotics · Learned dynamics · Optimal control</p>
+          <h1>Learning to shape<br /><em>what bends.</em></h1>
+          <p class="hero-intro">
+            A dual-arm framework for controlling deformable linear objects with
+            learned dynamics, gradient-based model predictive control, and
+            differential inverse kinematics.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#background">Explore the project</a>
+            <a
+              class="button button-secondary"
+              href="https://github.com/Leary-H/dlo_mpc"
+              target="_blank"
+              rel="noreferrer"
+            >GitHub repository</a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-label="Abstract cable control illustration">
+          <svg viewBox="0 0 700 560" role="img" aria-labelledby="hero-title hero-desc">
+            <title id="hero-title">Dual-arm cable shape control</title>
+            <desc id="hero-desc">Two robot endpoints guide a cable toward a target curve.</desc>
+            <defs>
+              <linearGradient id="cable-gradient" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#82f7c7" />
+                <stop offset="1" stop-color="#42d4ff" />
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="5" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </defs>
+            <g class="target-curve" fill="none" stroke="#758195" stroke-width="2" stroke-dasharray="7 10">
+              <path d="M92 315 C210 160, 490 160, 608 315" />
+            </g>
+            <g class="actual-curve" fill="none" stroke="url(#cable-gradient)" stroke-width="7" stroke-linecap="round" filter="url(#glow)">
+              <path d="M92 315 C220 350, 480 350, 608 315" />
+            </g>
+            <g fill="#82f7c7">
+              <circle cx="92" cy="315" r="11" />
+              <circle cx="608" cy="315" r="11" />
+            </g>
+            <g class="arm arm-left">
+              <path d="M34 505 L80 425 L92 315" />
+              <circle cx="80" cy="425" r="20" />
+              <circle cx="34" cy="505" r="27" />
+            </g>
+            <g class="arm arm-right">
+              <path d="M666 505 L620 425 L608 315" />
+              <circle cx="620" cy="425" r="20" />
+              <circle cx="666" cy="505" r="27" />
+            </g>
+            <g class="plot-points" fill="#eaf1fa">
+              <circle cx="160" cy="325" r="3" /><circle cx="230" cy="335" r="3" />
+              <circle cx="300" cy="340" r="3" /><circle cx="370" cy="340" r="3" />
+              <circle cx="440" cy="335" r="3" /><circle cx="510" cy="325" r="3" />
+            </g>
+            <text x="350" y="80" text-anchor="middle" class="svg-label">TARGET SHAPE</text>
+            <line x1="350" y1="98" x2="350" y2="185" class="guide-line" />
+            <text x="350" y="410" text-anchor="middle" class="svg-caption">CURRENT CABLE STATE</text>
+          </svg>
+          <div class="status-pill"><span></span> Closed-loop simulation</div>
+        </div>
+      </section>
+
+      <section id="background" class="section section-background">
+        <div class="section-index reveal">01 / Background</div>
+        <div class="section-heading reveal">
+          <h2>Controlling a cable is a<br />high-dimensional problem.</h2>
+          <p>
+            Unlike a rigid object, a cable can bend into infinitely many shapes.
+            Its response depends on its current geometry, velocity, material
+            properties, and the coordinated motion of both endpoints.
+          </p>
+        </div>
+
+        <div class="background-grid">
+          <article class="statement reveal">
+            <span class="statement-number">01</span>
+            <h3>Observe</h3>
+            <p>Represent the cable using 40 ordered three-dimensional feature points.</p>
+          </article>
+          <article class="statement reveal">
+            <span class="statement-number">02</span>
+            <h3>Predict</h3>
+            <p>Learn how dual-arm Cartesian commands change the cable-point velocities.</p>
+          </article>
+          <article class="statement reveal">
+            <span class="statement-number">03</span>
+            <h3>Control</h3>
+            <p>Optimize endpoint velocities online to track a desired cable shape.</p>
+          </article>
+        </div>
+
+        <div class="pipeline reveal" aria-label="System pipeline">
+          <div class="pipeline-node">
+            <span>State</span><strong>Cable points</strong><small>40 × 3</small>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-node accent-node">
+            <span>Model</span><strong>Learned dynamics</strong><small>Ẋ = f(X, u)</small>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-node">
+            <span>Optimizer</span><strong>MPC</strong><small>u<sub>L</sub>, u<sub>R</sub></small>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-node">
+            <span>Kinematics</span><strong>Pinocchio IK</strong><small>q̇ = J<sup>#</sup>v</small>
+          </div>
+          <div class="pipeline-arrow">→</div>
+          <div class="pipeline-node">
+            <span>Plant</span><strong>MuJoCo</strong><small>Dual Panda + DLO</small>
+          </div>
+        </div>
+      </section>
+
+      <section id="models" class="section section-models">
+        <div class="section-index reveal">02 / Neural networks</div>
+        <div class="section-heading reveal">
+          <h2>Three ways to learn<br />the cable dynamics.</h2>
+          <p>
+            Each network receives the same geometric tokens and six-dimensional
+            dual-arm velocity command, then predicts the 3D velocity of 20
+            dynamic cable points.
+          </p>
+        </div>
+
+        <div class="token-card reveal">
+          <div>
+            <span class="mono-label">TOKEN i</span>
+            <div class="formula">e<sub>i</sub> = [ x<sub>i</sub>, x<sub>i</sub> − y<sub>L</sub>, x<sub>i</sub> − y<sub>R</sub> ] ∈ ℝ<sup>9</sup></div>
+          </div>
+          <p>Absolute geometry plus the position of every point relative to both controlled endpoints.</p>
+        </div>
+
+        <div class="model-grid">
+          <article class="model-card reveal">
+            <div class="model-topline"><span>Model A</span><span>Global</span></div>
+            <h3>MLP</h3>
+            <p>A compact baseline that flattens all cable tokens and concatenates the control command.</p>
+            <div class="architecture">
+              <span>40 × 9</span><i>+</i><span>6</span><b>→</b><span>Hidden layers</span><b>→</b><span>20 × 3</span>
+            </div>
+          </article>
+
+          <article class="model-card reveal">
+            <div class="model-topline"><span>Model B</span><span>Relational</span></div>
+            <h3>Attention–MLP</h3>
+            <p>Self-attention allows each cable point to exchange information with every other point.</p>
+            <div class="architecture">
+              <span>Embedding</span><b>→</b><span>Attention × N</span><b>→</b><span>MLP</span><b>→</b><span>20 × 3</span>
+            </div>
+          </article>
+
+          <article class="model-card featured reveal">
+            <div class="model-topline"><span>Model C</span><span>Contextual</span></div>
+            <h3>TF–MLP</h3>
+            <p>A Transformer encoder combines attention and feed-forward processing before shared decoding.</p>
+            <div class="architecture">
+              <span>Embedding</span><b>→</b><span>Transformer × N</span><b>→</b><span>MLP</span><b>→</b><span>20 × 3</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="model-note reveal">
+          <span class="mono-label">COMMON OUTPUT</span>
+          <p>Predicted cable-point velocity <strong>Ẋ ∈ ℝ<sup>20×3</sup></strong>, trained with one-step mean squared error.</p>
+        </div>
+      </section>
+
+      <section id="data" class="section section-video">
+        <div class="section-index reveal">03 / Data collection</div>
+        <div class="section-heading reveal">
+          <h2>Learning from motion.</h2>
+          <p>
+            Valid dual-arm endpoint targets are sampled offline. During rollout,
+            Cartesian proportional control moves both grippers while cable
+            states, endpoint commands, and point velocities are recorded.
+          </p>
+        </div>
+
+        <div class="video-layout">
+          <div class="video-shell reveal">
+            <video controls playsinline preload="metadata" poster="assets/data-poster.jpg">
+              <source src="assets/data-collection.mp4" type="video/mp4" />
+              Your browser does not support HTML video.
+            </video>
+            <div class="video-placeholder">
+              <span class="play-icon">▶</span>
+              <strong>Data-collection video</strong>
+              <small>Add <code>assets/data-collection.mp4</code></small>
+            </div>
+          </div>
+          <aside class="video-notes reveal">
+            <div><span>01</span><p>Sample reachable left and right TCP targets.</p></div>
+            <div><span>02</span><p>Move both arms with bounded Cartesian velocity.</p></div>
+            <div><span>03</span><p>Record transitions every 20 milliseconds.</p></div>
+            <div><span>04</span><p>Split trajectories for training and independent testing.</p></div>
+          </aside>
+        </div>
+
+        <div class="data-strip reveal">
+          <div><span>State</span><strong>X ∈ ℝ<sup>40×3</sup></strong></div>
+          <div><span>Endpoints</span><strong>y ∈ ℝ<sup>6</sup></strong></div>
+          <div><span>Command</span><strong>u ∈ ℝ<sup>6</sup></strong></div>
+          <div><span>Target</span><strong>Ẋ ∈ ℝ<sup>20×3</sup></strong></div>
+        </div>
+      </section>
+
+      <section id="mpc" class="section section-video section-mpc">
+        <div class="section-index reveal">04 / MPC control</div>
+        <div class="section-heading reveal">
+          <h2>From a target curve<br />to coordinated motion.</h2>
+          <p>
+            At every control update, MPC rolls the learned model forward,
+            optimizes the two endpoint velocity commands, and maps them to joint
+            space using Pinocchio differential inverse kinematics.
+          </p>
+        </div>
+
+        <div class="video-layout reverse">
+          <div class="video-shell reveal">
+            <video controls playsinline preload="metadata" poster="assets/mpc-poster.jpg">
+              <source src="assets/mpc-control.mp4" type="video/mp4" />
+              Your browser does not support HTML video.
+            </video>
+            <div class="video-placeholder">
+              <span class="play-icon">▶</span>
+              <strong>MPC control video</strong>
+              <small>Add <code>assets/mpc-control.mp4</code></small>
+            </div>
+          </div>
+          <aside class="metric-card reveal">
+            <span class="mono-label">ONLINE LOOP</span>
+            <ol>
+              <li>Observe current cable shape</li>
+              <li>Predict candidate trajectories</li>
+              <li>Optimize dual-arm TCP velocities</li>
+              <li>Apply differential IK commands</li>
+              <li>Repeat in closed loop</li>
+            </ol>
+            <div class="metric-formula">q̇ = J<sup>#</sup>v<sub>TCP</sub></div>
+          </aside>
+        </div>
+
+        <div class="objective reveal">
+          <span class="mono-label">CONTROL OBJECTIVE</span>
+          <p>min<sub>U</sub> Σ ‖X<sub>k</sub> − X<sub>goal</sub>‖<sub>W</sub><sup>2</sup> + λ<sub>u</sub>‖u<sub>k</sub>‖<sup>2</sup> + λ<sub>Δu</sub>‖Δu<sub>k</sub>‖<sup>2</sup></p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <span class="brand footer-brand"><span class="brand-mark"></span>DLO—MPC</span>
+        <p>Dual-arm data-driven control of deformable linear objects.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#top">Back to top ↑</a>
+        <a href="https://github.com/Leary-H/dlo_mpc" target="_blank" rel="noreferrer">Source code ↗</a>
+      </div>
+      <small>Built by Linxiao · 2026</small>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
