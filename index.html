@@ -182,6 +182,19 @@
             <div class="model-topline"><span>Model A</span><span>Global</span></div>
             <h3>MLP</h3>
             <p>A compact baseline that flattens all cable tokens and concatenates the control command.</p>
+            <a
+              class="model-diagram"
+              href="assets/mlp-architecture.png"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the full-resolution MLP architecture diagram"
+            >
+              <img
+                src="assets/mlp-architecture.png"
+                alt="MLP dynamics model architecture"
+                loading="lazy"
+              />
+            </a>
             <div class="architecture">
               <span>40 × 9</span><i>+</i><span>6</span><b>→</b><span>Hidden layers</span><b>→</b><span>20 × 3</span>
             </div>
@@ -191,6 +204,19 @@
             <div class="model-topline"><span>Model B</span><span>Relational</span></div>
             <h3>Attention–MLP</h3>
             <p>Self-attention allows each cable point to exchange information with every other point.</p>
+            <a
+              class="model-diagram"
+              href="assets/attention-mlp-architecture-v4.png"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the full-resolution Attention-MLP architecture diagram"
+            >
+              <img
+                src="assets/attention-mlp-architecture-v4.png"
+                alt="Attention encoder and shared MLP decoder architecture"
+                loading="lazy"
+              />
+            </a>
             <div class="architecture">
               <span>Embedding</span><b>→</b><span>Attention × N</span><b>→</b><span>MLP</span><b>→</b><span>20 × 3</span>
             </div>
@@ -200,48 +226,23 @@
             <div class="model-topline"><span>Model C</span><span>Contextual</span></div>
             <h3>TF–MLP</h3>
             <p>A Transformer encoder combines attention and feed-forward processing before shared decoding.</p>
+            <a
+              class="model-diagram"
+              href="assets/tf-mlp-architecture.png"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open the full-resolution TF-MLP architecture diagram"
+            >
+              <img
+                src="assets/tf-mlp-architecture.png"
+                alt="Transformer encoder and shared MLP decoder architecture"
+                loading="lazy"
+              />
+            </a>
             <div class="architecture">
               <span>Embedding</span><b>→</b><span>Transformer × N</span><b>→</b><span>MLP</span><b>→</b><span>20 × 3</span>
             </div>
           </article>
-        </div>
-
-        <div class="architecture-gallery" aria-label="Neural network architecture diagrams">
-          <figure class="architecture-figure reveal">
-            <div class="architecture-figure-heading">
-              <span class="mono-label">MODEL A</span>
-              <h3>MLP architecture</h3>
-            </div>
-            <img
-              src="assets/mlp-architecture.png"
-              alt="MLP architecture for dual-arm deformable linear object dynamics learning"
-              loading="lazy"
-            />
-          </figure>
-
-          <figure class="architecture-figure reveal">
-            <div class="architecture-figure-heading">
-              <span class="mono-label">MODEL B</span>
-              <h3>Attention–MLP architecture</h3>
-            </div>
-            <img
-              src="assets/attention-mlp-architecture-v4.png"
-              alt="Attention encoder and shared MLP decoder architecture for dual-arm deformable linear object dynamics learning"
-              loading="lazy"
-            />
-          </figure>
-
-          <figure class="architecture-figure reveal">
-            <div class="architecture-figure-heading">
-              <span class="mono-label">MODEL C</span>
-              <h3>TF–MLP architecture</h3>
-            </div>
-            <img
-              src="assets/tf-mlp-architecture.png"
-              alt="Transformer encoder and shared MLP decoder architecture for dual-arm deformable linear object dynamics learning"
-              loading="lazy"
-            />
-          </figure>
         </div>
 
         <div class="model-note reveal">

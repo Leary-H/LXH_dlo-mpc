@@ -109,19 +109,17 @@ h1 em { color: var(--accent); font-style: normal; }
 .formula { margin-top: 12px; font-family: "DM Mono", monospace; font-size: clamp(1rem, 2vw, 1.5rem); }
 .token-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
 .model-grid { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.model-card { min-height: 390px; padding: 28px; display: flex; flex-direction: column; border: 1px solid var(--line); background: rgba(255,255,255,0.018); }
+.model-card { min-height: 610px; padding: 28px; display: flex; flex-direction: column; border: 1px solid var(--line); background: rgba(255,255,255,0.018); overflow: hidden; }
 .model-card.featured { background: linear-gradient(145deg, rgba(66,212,255,0.08), rgba(255,255,255,0.015)); }
 .model-topline { display: flex; justify-content: space-between; color: var(--dim); font: 0.68rem "DM Mono", monospace; text-transform: uppercase; letter-spacing: 0.1em; }
-.model-card h3 { margin: 55px 0 12px; font-size: 2.4rem; letter-spacing: -0.05em; font-weight: 500; }
+.model-card h3 { margin: 40px 0 12px; font-size: 2.4rem; letter-spacing: -0.05em; font-weight: 500; }
 .model-card p { color: var(--muted); }
+.model-diagram { min-height: 210px; margin: 18px -10px 20px; padding: 8px; display: grid; place-items: center; border: 1px solid transparent; overflow: hidden; transition: border-color 180ms ease, background 180ms ease; }
+.model-diagram:hover { border-color: rgba(130,247,199,0.35); background: rgba(130,247,199,0.025); }
+.model-diagram img { width: 100%; max-height: 210px; display: block; object-fit: contain; filter: invert(1) hue-rotate(180deg) brightness(1.15) contrast(0.92); mix-blend-mode: screen; opacity: 0.9; }
 .architecture { margin-top: auto; padding-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border-top: 1px solid var(--line); }
 .architecture span { padding: 5px 7px; color: var(--muted); border: 1px solid var(--line); font: 0.6rem "DM Mono", monospace; }
 .architecture i, .architecture b { color: var(--dim); font-style: normal; font-weight: 400; }
-.architecture-gallery { margin-top: 58px; display: grid; gap: 28px; }
-.architecture-figure { margin: 0; border: 1px solid var(--line); background: rgba(255,255,255,0.018); overflow: hidden; }
-.architecture-figure-heading { padding: 22px 26px; display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-bottom: 1px solid var(--line); }
-.architecture-figure-heading h3 { margin: 0; font-size: 1.25rem; font-weight: 500; letter-spacing: -0.03em; }
-.architecture-figure img { width: 100%; height: auto; display: block; background: #fff; }
 .model-note { margin-top: 22px; display: flex; justify-content: space-between; gap: 30px; }
 .model-note p { margin: 0; color: var(--muted); }
 
@@ -182,8 +180,9 @@ footer small { grid-column: 1 / -1; color: var(--dim); }
   .section { padding: 90px 18px; }
   .section-heading { margin-bottom: 50px; }
   .token-card { grid-template-columns: 1fr; }
-  .architecture-gallery { margin-top: 40px; gap: 20px; }
-  .architecture-figure-heading { padding: 18px; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .model-card { min-height: 560px; }
+  .model-diagram { min-height: 180px; }
+  .model-diagram img { max-height: 180px; }
   .model-note { flex-direction: column; }
   .video-shell, .video-shell video { min-height: 260px; }
   .data-strip { grid-template-columns: repeat(2, 1fr); }
