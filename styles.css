@@ -114,14 +114,48 @@ h1 em { color: var(--accent); font-style: normal; }
 .model-topline { display: flex; justify-content: space-between; color: var(--dim); font: 0.68rem "DM Mono", monospace; text-transform: uppercase; letter-spacing: 0.1em; }
 .model-card h3 { margin: 40px 0 12px; font-size: 2.4rem; letter-spacing: -0.05em; font-weight: 500; }
 .model-card p { color: var(--muted); }
-.model-diagram { min-height: 210px; margin: 18px -10px 20px; padding: 8px; display: grid; place-items: center; border: 1px solid transparent; overflow: hidden; transition: border-color 180ms ease, background 180ms ease; }
-.model-diagram:hover { border-color: rgba(130,247,199,0.35); background: rgba(130,247,199,0.025); }
-.model-diagram img { width: 100%; max-height: 210px; display: block; object-fit: contain; filter: invert(1) hue-rotate(180deg) brightness(1.15) contrast(0.92); mix-blend-mode: screen; opacity: 0.9; }
+.model-diagram {
+  min-height: 210px;
+  margin: 18px -10px 20px;
+  padding: 12px;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  border: 1px solid rgba(116, 151, 176, 0.16);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(66, 212, 255, 0.07), transparent 68%),
+    #07131d;
+  overflow: hidden;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+.model-diagram:hover {
+  border-color: rgba(130,247,199,0.42);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(130, 247, 199, 0.09), transparent 68%),
+    #07131d;
+}
+.model-diagram img {
+  width: 100%;
+  max-height: 210px;
+  display: block;
+  object-fit: contain;
+  /* White paper becomes transparent-looking navy; black notation becomes light. */
+  filter: invert(1) sepia(0.08) saturate(1.35) hue-rotate(155deg) brightness(1.08) contrast(1.04);
+  mix-blend-mode: screen;
+  opacity: 0.92;
+}
 .architecture { margin-top: auto; padding-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border-top: 1px solid var(--line); }
 .architecture span { padding: 5px 7px; color: var(--muted); border: 1px solid var(--line); font: 0.6rem "DM Mono", monospace; }
 .architecture i, .architecture b { color: var(--dim); font-style: normal; font-weight: 400; }
 .model-note { margin-top: 22px; display: flex; justify-content: space-between; gap: 30px; }
 .model-note p { margin: 0; color: var(--muted); }
+.citation-link, .references a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(130,247,199,0.35); text-underline-offset: 3px; }
+.citation-link:hover, .references a:hover { text-decoration-color: var(--accent); }
+.references { margin-top: 22px; padding: 24px 28px; display: grid; grid-template-columns: 0.22fr 1fr; gap: 28px; border: 1px solid var(--line); background: rgba(255,255,255,0.018); }
+.references ol { margin: 0; padding-left: 22px; color: var(--muted); font-size: 0.88rem; }
+.references li { padding-left: 6px; }
+.references em { color: var(--ink); }
+.references a { margin-left: 8px; font-family: "DM Mono", monospace; font-size: 0.72rem; white-space: nowrap; }
 
 .video-layout { display: grid; grid-template-columns: 1fr 0.34fr; gap: 22px; }
 .video-layout.reverse { grid-template-columns: 1fr 0.34fr; }
@@ -184,6 +218,7 @@ footer small { grid-column: 1 / -1; color: var(--dim); }
   .model-diagram { min-height: 180px; }
   .model-diagram img { max-height: 180px; }
   .model-note { flex-direction: column; }
+  .references { padding: 20px; grid-template-columns: 1fr; gap: 12px; }
   .video-shell, .video-shell video { min-height: 260px; }
   .data-strip { grid-template-columns: repeat(2, 1fr); }
   .data-strip div:nth-child(2) { border-right: 0; }

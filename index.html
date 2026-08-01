@@ -225,7 +225,11 @@
           <article class="model-card featured reveal">
             <div class="model-topline"><span>Model C</span><span>Contextual</span></div>
             <h3>TF–MLP</h3>
-            <p>A Transformer encoder combines attention and feed-forward processing before shared decoding.</p>
+            <p>
+              A Transformer encoder combines attention and feed-forward
+              processing before shared decoding. Architecture adapted from
+              Tang et al. <a class="citation-link" href="#reference-1">[1]</a>
+            </p>
             <a
               class="model-diagram"
               href="assets/tf-mlp-architecture.png"
@@ -249,6 +253,24 @@
           <span class="mono-label">COMMON OUTPUT</span>
           <p>Predicted cable-point velocity <strong>Ẋ ∈ ℝ<sup>20×3</sup></strong>, trained with one-step mean squared error.</p>
         </div>
+
+        <aside class="references reveal" aria-labelledby="references-title">
+          <span id="references-title" class="mono-label">REFERENCE</span>
+          <ol>
+            <li id="reference-1">
+              Y. Tang, X. Chu, J. Huang, and K. W. Samuel Au,
+              “Learning-Based MPC With Safety Filter for Constrained
+              Deformable Linear Object Manipulation,”
+              <em>IEEE Robotics and Automation Letters</em>, vol. 9, no. 3,
+              pp. 2877–2884, 2024.
+              <a
+                href="https://doi.org/10.1109/LRA.2024.3362643"
+                target="_blank"
+                rel="noreferrer"
+              >DOI ↗</a>
+            </li>
+          </ol>
+        </aside>
       </section>
 
       <section id="data" class="section section-video">
