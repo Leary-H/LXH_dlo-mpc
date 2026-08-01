@@ -206,6 +206,44 @@
           </article>
         </div>
 
+        <div class="architecture-gallery" aria-label="Neural network architecture diagrams">
+          <figure class="architecture-figure reveal">
+            <div class="architecture-figure-heading">
+              <span class="mono-label">MODEL A</span>
+              <h3>MLP architecture</h3>
+            </div>
+            <img
+              src="assets/mlp-architecture.png"
+              alt="MLP architecture for dual-arm deformable linear object dynamics learning"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="architecture-figure reveal">
+            <div class="architecture-figure-heading">
+              <span class="mono-label">MODEL B</span>
+              <h3>Attention–MLP architecture</h3>
+            </div>
+            <img
+              src="assets/attention-mlp-architecture-v4.png"
+              alt="Attention encoder and shared MLP decoder architecture for dual-arm deformable linear object dynamics learning"
+              loading="lazy"
+            />
+          </figure>
+
+          <figure class="architecture-figure reveal">
+            <div class="architecture-figure-heading">
+              <span class="mono-label">MODEL C</span>
+              <h3>TF–MLP architecture</h3>
+            </div>
+            <img
+              src="assets/tf-mlp-architecture.png"
+              alt="Transformer encoder and shared MLP decoder architecture for dual-arm deformable linear object dynamics learning"
+              loading="lazy"
+            />
+          </figure>
+        </div>
+
         <div class="model-note reveal">
           <span class="mono-label">COMMON OUTPUT</span>
           <p>Predicted cable-point velocity <strong>Ẋ ∈ ℝ<sup>20×3</sup></strong>, trained with one-step mean squared error.</p>

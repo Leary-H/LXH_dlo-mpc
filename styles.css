@@ -117,6 +117,11 @@ h1 em { color: var(--accent); font-style: normal; }
 .architecture { margin-top: auto; padding-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border-top: 1px solid var(--line); }
 .architecture span { padding: 5px 7px; color: var(--muted); border: 1px solid var(--line); font: 0.6rem "DM Mono", monospace; }
 .architecture i, .architecture b { color: var(--dim); font-style: normal; font-weight: 400; }
+.architecture-gallery { margin-top: 58px; display: grid; gap: 28px; }
+.architecture-figure { margin: 0; border: 1px solid var(--line); background: rgba(255,255,255,0.018); overflow: hidden; }
+.architecture-figure-heading { padding: 22px 26px; display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-bottom: 1px solid var(--line); }
+.architecture-figure-heading h3 { margin: 0; font-size: 1.25rem; font-weight: 500; letter-spacing: -0.03em; }
+.architecture-figure img { width: 100%; height: auto; display: block; background: #fff; }
 .model-note { margin-top: 22px; display: flex; justify-content: space-between; gap: 30px; }
 .model-note p { margin: 0; color: var(--muted); }
 
@@ -177,6 +182,8 @@ footer small { grid-column: 1 / -1; color: var(--dim); }
   .section { padding: 90px 18px; }
   .section-heading { margin-bottom: 50px; }
   .token-card { grid-template-columns: 1fr; }
+  .architecture-gallery { margin-top: 40px; gap: 20px; }
+  .architecture-figure-heading { padding: 18px; flex-direction: column; align-items: flex-start; gap: 4px; }
   .model-note { flex-direction: column; }
   .video-shell, .video-shell video { min-height: 260px; }
   .data-strip { grid-template-columns: repeat(2, 1fr); }
