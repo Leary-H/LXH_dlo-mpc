@@ -157,6 +157,9 @@ h1 em { color: var(--accent); font-style: normal; }
 .evaluation-copy { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: end; }
 .evaluation-copy h3 { margin: 12px 0 0; font-size: clamp(1.8rem, 3vw, 3rem); line-height: 1; letter-spacing: -0.05em; font-weight: 500; }
 .evaluation-copy p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.evaluation-subsection { margin-top: 34px; display: flex; justify-content: space-between; gap: 24px; align-items: baseline; }
+.evaluation-subsection-results { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--line); }
+.evaluation-subsection h4 { margin: 0; color: var(--ink); font-size: 1.05rem; font-weight: 500; }
 .evaluation-figure { margin-top: 28px; display: block; border: 1px solid rgba(116,151,176,0.18); background: #07131d; overflow: hidden; transition: border-color 180ms ease; }
 .evaluation-figure:hover { border-color: rgba(130,247,199,0.42); }
 .evaluation-figure picture, .evaluation-figure img { width: 100%; display: block; }
@@ -234,6 +237,7 @@ footer small { grid-column: 1 / -1; color: var(--dim); }
   .model-note { flex-direction: column; }
   .model-evaluation { margin-top: 38px; padding: 18px; }
   .evaluation-copy { grid-template-columns: 1fr; gap: 18px; }
+  .evaluation-subsection { align-items: flex-start; flex-direction: column; gap: 8px; }
   .references { padding: 20px; grid-template-columns: 1fr; gap: 12px; }
   .video-shell, .video-shell video { min-height: 260px; }
   .data-strip { grid-template-columns: repeat(2, 1fr); }

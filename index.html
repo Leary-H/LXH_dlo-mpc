@@ -257,15 +257,42 @@
         <section class="model-evaluation reveal" aria-labelledby="model-evaluation-title">
           <div class="evaluation-copy">
             <div>
-              <span class="mono-label">HELD-OUT EVALUATION</span>
+              <span class="mono-label">MODEL EVALUATION</span>
               <h3 id="model-evaluation-title">Accuracy meets runtime.</h3>
             </div>
             <p>
-              All three models are evaluated on the same independently
-              collected test set. The comparison reports normalized test MSE,
-              one-step cable-point velocity RMSE, and batch-size-one inference
-              latency measured over ten forward passes.
+              Training dynamics reveal convergence and computational cost;
+              evaluation on the same independently collected test set measures
+              prediction accuracy and batch-size-one inference latency.
             </p>
+          </div>
+          <div class="evaluation-subsection">
+            <span class="mono-label">TRAINING DYNAMICS</span>
+            <h4>Convergence and training cost</h4>
+          </div>
+          <a
+            class="evaluation-figure"
+            href="assets/training-comparison.svg"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open the full-resolution training comparison figure"
+          >
+            <picture>
+              <source srcset="assets/training-comparison.svg" type="image/svg+xml" />
+              <img
+                src="assets/training-comparison.png"
+                alt="Training loss, validation loss, and total training time for MLP, Attention-MLP, and TF-MLP"
+                loading="lazy"
+              />
+            </picture>
+          </a>
+          <p class="evaluation-caption">
+            Losses are shown on a logarithmic scale. Training time is measured
+            from the first to the final logged epoch on the same workstation.
+          </p>
+          <div class="evaluation-subsection evaluation-subsection-results">
+            <span class="mono-label">HELD-OUT TEST</span>
+            <h4>Prediction accuracy and inference latency</h4>
           </div>
           <a
             class="evaluation-figure"
